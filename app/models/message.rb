@@ -1,0 +1,29 @@
+class Message < ApplicationRecord
+  enum role: { system: 0, assistant: 10, user: 20 }
+  belongs_to :chat
+
+  after_create_commit -> { broadcast_created }
+  after_update_commit -> { broadcast_updated }
+
+  def broadcast_created
+    broadcast_append_later_to(
+      "chat_#{chat.id}_messages",
+      partial: "messages/message",
+      locals: { message: self, scroll_to: true },
+      target: "chat_#{chat.id}_messages"
+    )
+  end
+
+  def broadcast_updated
+    broadcast_append_to(
+      "chat_#{chat.id}_messages",
+      partial: "messages/message",
+      locals: { message: self, scroll_to: true },
+      target: "chat_#{chat.id}_messages"
+    )
+  end
+
+  def self.for_openai(messages)
+    messages.map { |message| { role: message.role, content: message.content } }
+  end
+end

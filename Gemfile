@@ -78,3 +78,4 @@ gem "devise", "~> 4.9"
 
 gem "ruby-openai", "~> 6.2"
 gem "sidekiq", "~> 7.2"
+gem "dotenv-rails"

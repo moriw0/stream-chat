@@ -1,24 +1,20 @@
-# README
+# ChatGPT streaming
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Usage
+Install redis
+```
+brew install redis
+```
+Add User and Chat information on Rails Console
+```
+user = User.create(email: 'test@example.com', password: 'password', password_confirmation: 'password')
+Chat.create(user: user)
+```
+Run
+```
+bin/dev
+```
+Visit
+```
+http://lodcalhost:3000/chats/1
+```

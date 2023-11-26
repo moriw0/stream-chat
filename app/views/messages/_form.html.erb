@@ -1,0 +1,6 @@
+<%= turbo_frame_tag "#{dom_id(chat)}_message_form" do %>
+  <%= form_with(model: Message.new, url: chat_messages_path(chat)) do |form| %>
+    <%= form.text_area :content, rows: 4, "x-on:keydown.cmd.enter" => "$event.target.form.requestSubmit();" %>
+    <%= form.button '送信', type: :submit %>
+  <% end %>
+<% end %>

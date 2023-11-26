@@ -4,4 +4,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  resources :chats do
+    resources :messages, only: %i[new create]
+  end
 end
